@@ -10,6 +10,7 @@ void gotoxy(int x, int y){
 
 void header(size_t numberOfCh, unsigned int milliseconds, const char *text){
     size_t i;
+    gotoxy(COORD_X, COORD_Y);
     for (i = 0 ; i < numberOfCh ; ++i) {
         printf("%c", 219);
         Sleep(milliseconds);
@@ -23,12 +24,25 @@ void header(size_t numberOfCh, unsigned int milliseconds, const char *text){
     }
 }
 
-void printAtCoordinates(const char *text, void (*coordFunction)(int,int), int x, int y){
-    coordFunction(x, y);
-    printf("%s", text);
+//İstenilen sayıda girilen satırı, girilen koordinatlara göre yazdırır. (Her yazdırma sonrası y-koordinatını 2 arttırır.)
+void printAtCoordinates(int coordX, int coordY, int numOfLines, ...){
+    
+    va_list args;
+    va_start(args, numOfLines);
+
+    for (int i = 0 ; i < numOfLines ; i++) {
+        gotoxy(coordX, coordY); 
+        const char *str = va_arg(args, const char*);
+        printf("%s", str);
+        coordY += 2;
+    }
+
+    va_end(args);
+
 }
 
-void getMenuInput(unsigned short *var, size_t numberOfInput, size_t numberOfOption){
+//Kullanıcıdan 'getch()' ile alınan girdinin sınırlarını, menüde bulunan seçenek sayısına göre ayarlar.
+void getMenuChoice(unsigned short *var, size_t numberOfInput, size_t numberOfChoice){
 
     *var = 0;
 
@@ -37,11 +51,11 @@ void getMenuInput(unsigned short *var, size_t numberOfInput, size_t numberOfOpti
 
     fflush(stdin);
 
-    if (numberOfOption <= 9)
-        limit1 = numberOfOption + '0';
+    if (numberOfChoice <= 9)
+        limit1 = numberOfChoice + '0';  
     else {
         limit1 = '9';
-        limit2 = numberOfOption % 10 + '0';
+        limit2 = numberOfChoice % 10 + '0';
     }
 
     while (i < numberOfInput) {
