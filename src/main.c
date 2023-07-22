@@ -72,6 +72,7 @@ void menu(void){
                 value = inputValue(gotoxy, COORD_X + 58, COORD_Y + 3);
                 result = convertLength(from, to, value);
                 printConversionResult(result, gotoxy, COORD_X + 58, COORD_Y + 5);
+                freeMemory(value, result);
                 break;
 
             case TEMPERATURE:
@@ -101,6 +102,7 @@ void menu(void){
                 value = inputValue(gotoxy, COORD_X + 58, COORD_Y + 3);
                 result = convertTemperature(from, to, value);
                 printConversionResult(result, gotoxy, COORD_X + 58, COORD_Y + 5);
+                freeMemory(value, result);
                 break;
 
             case AREA:
@@ -137,6 +139,7 @@ void menu(void){
                 value = inputValue(gotoxy, COORD_X + 58, COORD_Y + 3);
                 result = convertArea(from, to, value);
                 printConversionResult(result, gotoxy, COORD_X + 58, COORD_Y + 5);
+                freeMemory(value, result);
                 break;
 
             case VOLUME:
@@ -173,6 +176,7 @@ void menu(void){
                 value = inputValue(gotoxy, COORD_X + 58, COORD_Y + 3);
                 result = convertVolume(from, to, value);
                 printConversionResult(result, gotoxy, COORD_X + 58, COORD_Y + 5);
+                freeMemory(value, result);
                 break;
 
             case MASS:
@@ -205,6 +209,7 @@ void menu(void){
                 value = inputValue(gotoxy, COORD_X + 58, COORD_Y + 3);
                 result = convertMass(from, to, value);
                 printConversionResult(result, gotoxy, COORD_X + 58, COORD_Y + 5);
+                freeMemory(value, result);
                 break;
 
             case DATA:
@@ -241,12 +246,11 @@ void menu(void){
                 value = inputValue(gotoxy, COORD_X + 58, COORD_Y + 3);
                 result = convertData(from, to, value);
                 printConversionResult(result, gotoxy, COORD_X + 58, COORD_Y + 5);
+                freeMemory(value, result);
                 break;
 
             case EXIT:
                 clearscreen();
-                free(value);
-                free(result);
                 exit(EXIT_SUCCESS);
 
         }
