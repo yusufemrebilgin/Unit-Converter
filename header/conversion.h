@@ -1,5 +1,10 @@
-#ifndef     _CONVERSION_H
-#define     _CONVERSION_H
+#ifndef     CONVERSION_H
+#define     CONVERSION_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <limits.h>
 
 typedef enum _LengthUnits {
     KILOMETER = 1, METER, CENTIMETER, MILLIMETER, MICROMETER, NANOMETER,
@@ -49,15 +54,15 @@ typedef struct _ConversionRatio {
 } ConversionRatio;
 
 
-double *inputValue(void (*coordFunction)(int,int), int x, int y);
+double *inputValue(void (*coordFunction)(int,int), int coordX, int coordY);
 double *convertLength(unsigned short src, unsigned short dest, const double *val);
 double *convertTemperature(unsigned short src, unsigned short dest, const double *val);
 double *convertArea(unsigned short src, unsigned short dest, const double *val);
 double *convertVolume(unsigned short src, unsigned short dest, const double *val);
 double *convertMass(unsigned short src, unsigned short dest, const double *val);
 double *convertData(unsigned short src, unsigned short dest, const double *val);
-void printConversionResult(const double *result, void (*coordFunction)(int,int), int x, int y);
-void printUnitName(unsigned short unit, Menu unitType, void (*coordFunction)(int,int), int x, int y);
+void printConversionResult(const double *result, void (*coordFunction)(int,int), int coordX, int coordY);
+void printUnitName(unsigned short unit, Menu unitChoice, void (*coordFunction)(int,int), int coordX, int coordY);
 
 
 #endif
