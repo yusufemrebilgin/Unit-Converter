@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdarg.h>
 #include <conio.h>
 #include <windows.h>
 
