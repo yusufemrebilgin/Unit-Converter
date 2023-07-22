@@ -63,6 +63,7 @@ double *convertMass(unsigned short src, unsigned short dest, const double *val);
 double *convertData(unsigned short src, unsigned short dest, const double *val);
 void printConversionResult(const double *result, void (*coordFunction)(int,int), int coordX, int coordY);
 void printUnitName(unsigned short unit, Menu unitChoice, void (*coordFunction)(int,int), int coordX, int coordY);
+void freeMemory(double *var1, double *var2);
 
 
 #endif
