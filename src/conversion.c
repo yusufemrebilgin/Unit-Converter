@@ -1,5 +1,4 @@
 #include "../header/conversion.h"
-#include "../header/common.h"
 
 ConversionRatio lengthRatios[] = {
 
@@ -221,159 +220,188 @@ ConversionRatio dataRatios[] = {
 
 };
 
-double *inputValue(void (*coordFunction)(int,int), int x, int y){
-    static double val = 0;
-    coordFunction(x, y);
-    if (scanf("%lf", &val) != 1) {
-        clearscreen();
+double *inputValue(void (*coordFunction)(int,int), int coordX, int coordY){
+    double *val = (double *)malloc(sizeof(double));
+    if (val == NULL ) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    coordFunction(coordX, coordY);
+    if (scanf("%lf", val) != 1) {
+        system("cls");
         fprintf(stderr, "Invalid Input\n");
         exit(EXIT_FAILURE);
     }
         
-    return &val;
+    return val;
 }
 
 double *convertLength(unsigned short src, unsigned short dest, const double *val){
     
     size_t i;
-    static double result = 0.0;
+    double *result = (double *)malloc(sizeof(double));
+    if (result == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    *result = *val;
 
     for (i = 0 ; i < sizeof(lengthRatios) / sizeof(ConversionRatio) ; ++i) {
 
         if (src == lengthRatios[i].src.length && dest == lengthRatios[i].dest.length) {
-            result = *val * lengthRatios[i].ratio;
+            *result = *val * lengthRatios[i].ratio;
             break;
         }
         else if (src == lengthRatios[i].dest.length && dest == lengthRatios[i].src.length) {
-            result = *val / lengthRatios[i].ratio;
+            *result = *val / lengthRatios[i].ratio;
             break;
         } 
-        else 
-            result = *val;
 
     }
     
-    return &result;
+    return result;
 }
 
 double *convertTemperature(unsigned short src, unsigned short dest, const double *val){
 
     size_t i;
-    static double result = 0.0;
+    double *result = (double *)malloc(sizeof(double));
+    if (result == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
 
     if (src == CELCIUS && dest == KELVIN) 
-        result = *val + 273.15;
+        *result = *val + 273.15;
     else if (src == KELVIN && dest == CELCIUS)
-        result = *val - 273.15;
+        *result = *val - 273.15;
     else if (src == CELCIUS && dest == FAHRENHEIT)
-        result = (*val * 9/5) + 32;
+        *result = (*val * 9/5) + 32;
     else if (src == FAHRENHEIT && dest == CELCIUS)
-        result = 5/9 * (*val - 32);
+        *result = 5/9 * (*val - 32);
     else if (src == KELVIN && dest == FAHRENHEIT)
-        result = (9/5 * *val) - 459.67;
+        *result = (9/5 * *val) - 459.67;
     else if (src == FAHRENHEIT && dest == KELVIN)
-        result = 5/9 * (*val + 459.67);
+        *result = 5/9 * (*val + 459.67);
     else
-        result = *val;
+        *result = *val;
 
-    return &result;
+    return result;
 }
 
 double *convertArea(unsigned short src, unsigned short dest, const double *val){
 
     size_t i;
-    static double result = 0.0;
+    double *result = (double *)malloc(sizeof(double));
+    if (result == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    *result = *val;
 
     for (i = 0 ; i < sizeof(areaRatios) / sizeof(ConversionRatio) ; ++i) {
 
         if (src == areaRatios[i].src.area && dest == areaRatios[i].dest.area) {
-            result = *val * areaRatios[i].ratio;
+            *result = *val * areaRatios[i].ratio;
             break;
         }
         else if (src == areaRatios[i].dest.area && dest == areaRatios[i].src.area) {
-            result = *val / areaRatios[i].ratio;
+            *result = *val / areaRatios[i].ratio;
             break;
         }
-        else
-            result = *val;
 
     }
     
-    return &result;
+    return result;
 }
 
 double *convertVolume(unsigned short src, unsigned short dest, const double *val){
 
     size_t i;
-    static double result = 0.0;
+    double *result = (double *)malloc(sizeof(double));
+    if (result == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    *result = *val;
 
     for (i = 0 ; i < sizeof(volumeRatios) / sizeof(ConversionRatio) ; ++i) {
 
         if (src == volumeRatios[i].src.volume && dest == volumeRatios[i].dest.volume) {
-            result = *val * volumeRatios[i].ratio;
+            *result = *val * volumeRatios[i].ratio;
             break;
         }   
         else if (src == volumeRatios[i].dest.volume && dest == volumeRatios[i].src.volume) {
-            result = *val / volumeRatios[i].ratio;
+            *result = *val / volumeRatios[i].ratio;
             break;
         }
-        else
-            result = *val;
 
     }
     
-    return &result;
+    return result;
 }
 
 double *convertMass(unsigned short src, unsigned short dest, const double *val){
 
     size_t i;
-    static double result = 0.0;
+    double *result = (double *)malloc(sizeof(double));
+    if (result == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    *result = *val;
 
     for (i = 0 ; i < sizeof(massRatios) / sizeof(ConversionRatio) ; ++i) {
 
         if (src == massRatios[i].src.mass && dest == massRatios[i].dest.mass) {
-            result = *val * massRatios[i].ratio;
+            *result = *val * massRatios[i].ratio;
             break;
         }
         else if (src == massRatios[i].dest.mass && dest == massRatios[i].src.mass) {
-            result = *val / massRatios[i].ratio;
+            *result = *val / massRatios[i].ratio;
             break;
         }
-        else
-            result = *val;
 
     }
     
-    return &result;
+    return result;
 }
 
 double *convertData(unsigned short src, unsigned short dest, const double *val){
 
     size_t i;
-    static double result = 0.0;
+    double *result = (double *)malloc(sizeof(double));
+    if (result == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    *result = *val;
 
     for (i = 0 ; i < sizeof(dataRatios) / sizeof(ConversionRatio) ; ++i) {
 
         if (src == dataRatios[i].src.data && dest == dataRatios[i].dest.data) {
-            result = *val * dataRatios[i].ratio;
+            *result = *val * dataRatios[i].ratio;
             break;
         } 
         else if (src == dataRatios[i].dest.data && dest == dataRatios[i].src.data) {
-            result = *val / dataRatios[i].ratio;
+            *result = *val / dataRatios[i].ratio;
             break;
         }
-        else
-            result = *val;
 
     }
     
-    return &result;
+    return result;
 }
 
-void printConversionResult(const double *result, void (*coordFunction)(int,int), int x, int y){
+void printConversionResult(const double *result, void (*coordFunction)(int,int), int coordX, int coordY){
 
-    coordFunction(x, y);
+    coordFunction(coordX, coordY);
     
     if (*result == (unsigned long long)*result && *result  < ULLONG_MAX) 
 
@@ -390,7 +418,7 @@ void printConversionResult(const double *result, void (*coordFunction)(int,int),
     getch();
 }
 
-void printUnitName(unsigned short unit, Menu unitType, void (*coordFunction)(int,int), int x, int y){
+void printUnitName(unsigned short unit, Menu unitChoice, void (*coordFunction)(int,int), int coordX, int coordY){
 
     const char *lengthUnitTable[] = {
         "Kilometer","Meter","Centimeter","Millimeter","Micrometer",
@@ -419,6 +447,6 @@ void printUnitName(unsigned short unit, Menu unitType, void (*coordFunction)(int
         lengthUnitTable, temperatureUnitTable, areaUnitTable, volumeUnitTable, massUnitTable, dataUnitTable
     };
 
-    coordFunction(x, y);
-    printf("%s", unitTables[unitType - 1][unit - 1]);
+    coordFunction(coordX, coordY);
+    printf("%s", unitTables[unitChoice - 1][unit - 1]);
 }
