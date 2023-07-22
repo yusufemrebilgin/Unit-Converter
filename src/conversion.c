@@ -450,3 +450,8 @@ void printUnitName(unsigned short unit, Menu unitChoice, void (*coordFunction)(i
     coordFunction(coordX, coordY);
     printf("%s", unitTables[unitChoice - 1][unit - 1]);
 }
+
+void freeMemory(double *var1, double *var2){
+    if (var1 != NULL) free(var1);
+    if (var2 != NULL) free(var2);
+}
